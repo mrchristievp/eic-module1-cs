@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 1: Introduction to Computer Science</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #dbeafe;
+      --accent: #7c3aed;
+      --accent-light: #ede9fe;
+      --green: #16a34a;
+      --green-light: #dcfce7;
+      --orange: #ea580c;
+      --orange-light: #ffedd5;
+      --red: #dc2626;
+      --red-light: #fee2e2;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --code-bg: #1e293b;
+      --code-text: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+      color: white;
+      padding: 52px 24px 44px;
+      text-align: center;
+    }
+
+    header .tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    header p {
+      font-size: 1.05rem;
+      opacity: 0.88;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    nav {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      overflow-x: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 0;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    nav a {
+      display: block;
+      padding: 14px 16px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 20px 88px;
+    }
+
+    section { margin-bottom: 72px; }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .section-intro {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 28px;
+      max-width: 640px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    p { margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .card.accent-blue  { border-left: 4px solid var(--primary); }
+    .card.accent-purple { border-left: 4px solid var(--accent); }
+    .card.accent-green  { border-left: 4px solid var(--green); }
+    .card.accent-orange { border-left: 4px solid var(--orange); }
+    .card.accent-red    { border-left: 4px solid var(--red); }
+
+    .card .card-icon { font-size: 1.8rem; margin-bottom: 10px; }
+
+    /* CS Field cards */
+    .field-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .field-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .field-card.selected { border-color: var(--primary); background: var(--primary-light); }
+
+    .field-card .field-icon { font-size: 2rem; margin-bottom: 10px; }
+    .field-card .field-name { font-weight: 800; font-size: 15px; margin-bottom: 4px; }
+    .field-card .field-teaser { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    .field-detail {
+      background: white;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-top: 16px;
+      display: none;
+      border-left: 4px solid var(--primary);
+    }
+
+    .field-detail.visible { display: block; }
+    .field-detail .field-detail-title { font-weight: 800; font-size: 16px; margin-bottom: 8px; }
+    .field-detail .field-examples { margin-top: 10px; }
+    .field-detail .field-examples span {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 3px 3px 0 0;
+    }
+
+    /* Comparison table */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .compare-table th {
+      background: var(--primary);
+      color: white;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .compare-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+      vertical-align: top;
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: var(--bg); }
+
+    /* Code block */
+    .code-block {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 10px;
+      padding: 20px 24px;
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: 14px;
+      line-height: 1.9;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    .code-block .comment  { color: #94a3b8; }
+    .code-block .keyword  { color: #93c5fd; }
+    .code-block .string   { color: #86efac; }
+    .code-block .func     { color: #fde68a; }
+    .code-block .num      { color: #f9a8d4; }
+    .code-block .err      { color: #fca5a5; background: rgba(239,68,68,0.15); border-radius: 3px; padding: 0 3px; }
+
+    /* Debug interactive */
+    .debug-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 4px 0;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+      transition: background 0.15s;
+      position: relative;
+    }
+
+    .debug-line:hover { background: rgba(255,255,255,0.1); }
+
+    .debug-line .line-num {
+      color: #64748b;
+      font-size: 12px;
+      min-width: 18px;
+      padding-top: 2px;
+    }
+
+    .debug-line .line-code { flex: 1; }
+
+    .debug-line .bug-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .debug-line.revealed .bug-badge { opacity: 1; }
+    .debug-line.is-ok   .bug-badge { background: #86efac; color: #14532d; }
+    .debug-line.is-bug  .bug-badge { background: #fca5a5; color: #7f1d1d; }
+
+    .debug-explanation {
+      background: rgba(255,255,255,0.06);
+      border-radius: 6px;
+      padding: 10px 14px 10px 44px;
+      font-size: 13px;
+      color: #cbd5e1;
+      display: none;
+      line-height: 1.6;
+    }
+
+    .debug-explanation.visible { display: block; }
+
+    /* Bug type quiz */
+    .bug-quiz-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-bottom: 14px;
+    }
+
+    .bug-quiz-card .bug-desc {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .bug-quiz-card .bug-choices {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .bug-choice {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .bug-choice:hover { border-color: var(--primary); background: var(--primary-light); }
+    .bug-choice.correct { border-color: var(--green); background: var(--green-light); color: var(--green); }
+    .bug-choice.wrong   { border-color: var(--red);  background: var(--red-light);  color: var(--red); }
+
+    .bug-feedback {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+      display: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+
+    .bug-feedback.show { display: block; }
+    .bug-feedback.correct { background: var(--green-light); color: #14532d; }
+    .bug-feedback.wrong   { background: var(--red-light);   color: #7f1d1d; }
+
+    /* Algorithm stepper */
+    .stepper { margin: 20px 0; }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      opacity: 0.3;
+      transition: opacity 0.3s;
+    }
+
+    .step.active { opacity: 1; }
+    .step.done   { opacity: 0.7; }
+
+    .step-num {
+      min-width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .step.active .step-num { background: var(--primary); color: white; }
+    .step.done   .step-num { background: var(--green);   color: white; }
+
+    .step-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .step-content p  { font-size: 14px; color: var(--muted); margin: 0; }
+
+    .stepper-controls { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+    /* Vocab chips */
+    .vocab-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .vocab-chip {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      user-select: none;
+    }
+
+    .vocab-chip:hover { background: #bfdbfe; transform: translateY(-1px); }
+    .vocab-chip.open  { background: var(--primary); color: white; }
+
+    .vocab-definition {
+      display: none;
+      background: var(--primary-light);
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .vocab-definition.visible { display: block; }
+
+    /* Info box */
+    .info-box {
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .info-box.blue   { background: var(--primary-light); border-left: 4px solid var(--primary); }
+    .info-box.green  { background: var(--green-light);   border-left: 4px solid var(--green); }
+    .info-box.orange { background: var(--orange-light);  border-left: 4px solid var(--orange); }
+    .info-box.purple { background: var(--accent-light);  border-left: 4px solid var(--accent); }
+
+    .info-box .info-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .info-box .info-text { font-size: 15px; line-height: 1.65; }
+    .info-box .info-text strong { display: block; font-weight: 700; margin-bottom: 4px; }
+
+    /* Flash cards */
+    .flashcard-container { perspective: 1000px; margin-bottom: 16px; }
+
+    .flashcard {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      min-height: 140px;
+      cursor: pointer;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+
+    .flashcard:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .flashcard.flipped { background: var(--primary-light); border-color: #bfdbfe; }
+
+    .flashcard .back { display: none; margin-top: 14px; }
+    .flashcard.flipped .back { display: block; }
+
+    .flashcard .question { font-weight: 700; font-size: 16px; }
+    .flashcard .answer   { color: var(--primary); font-size: 15px; line-height: 1.65; }
+    .flashcard .flip-hint {
+      position: absolute;
+      bottom: 14px;
+      right: 18px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .flashcard.flipped .flip-hint { color: var(--primary); }
+
+    .flashcard-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .flashcard-nav .card-count { color: var(--muted); font-size: 14px; flex: 1; text-align: center; }
+
+    .progress-wrap { background: var(--border); border-radius: 99px; height: 8px; margin-top: 10px; }
+    .progress-bar  {
+      height: 8px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.4s;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      text-decoration: none;
+    }
+
+    .btn:active { transform: scale(0.97); }
+    .btn-primary   { background: var(--primary); color: white; }
+    .btn-primary:hover   { background: #1d4ed8; }
+    .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: var(--border); }
+    .btn-outline   { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover   { background: var(--primary-light); }
+
+    /* Links grid */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+
+    .link-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 16px rgba(37,99,235,0.1);
+      transform: translateY(-2px);
+    }
+
+    .link-card .link-icon  { font-size: 1.6rem; flex-shrink: 0; }
+    .link-card .link-label { font-weight: 700; font-size: 14px; }
+    .link-card .link-desc  { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* Learning objectives */
+    .obj-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .obj-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .obj-list li .obj-num {
+      min-width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Divider */
+    .divider { height: 1px; background: var(--border); margin: 56px 0; }
+
+    footer {
+      background: var(--text);
+      color: #94a3b8;
+      text-align: center;
+      padding: 28px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      nav a { padding: 12px 11px; font-size: 13px; }
+      h2 { font-size: 1.4rem; }
+      .card { padding: 18px; }
+      header { padding: 36px 16px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="tag">Intro to Computer Science · Module 1</div>
+  <h1>CS Is Already Running Your Life</h1>
+  <p>You used computer science before you got to class today. This module breaks down what CS actually is — and how you'll start using it yourself.</p>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#cs-fields">CS Fields</a></li>
+    <li><a href="#languages">Languages</a></li>
+    <li><a href="#algorithms">Algorithms</a></li>
+    <li><a href="#debugging">Debugging</a></li>
+    <li><a href="#hardware">Hardware</a></li>
+    <li><a href="#vocab">Vocabulary</a></li>
+    <li><a href="#objectives">Objectives</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ── SECTION 1: CS FIELDS ─────────────────────────────────────────── -->
+  <section id="cs-fields">
+    <div class="section-label">Section 1</div>
+    <h2>What Is Computer Science?</h2>
+    <p class="section-intro">CS isn't one thing — it's a whole map of fields. Spotify, Face ID, Fortnite, and your school's login screen all run on different parts of it.</p>
+
+    <div class="info-box blue">
+      <span class="info-icon">💡</span>
+      <div class="info-text">
+        <strong>The big picture</strong>
+        Coding is one tool used across all of these fields — but it's not the whole picture. A cybersecurity analyst, a data scientist, and a game designer all use CS differently.
+      </div>
+    </div>
+
+    <h3 style="margin-top: 28px;">The CS Map — click any field to explore it</h3>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:16px;">Six major fields make up the CS landscape covered in this course.</p>
+
+    <div class="card-grid-3" id="fields-grid">
+      <div class="field-card" onclick="selectField(this,'field-ai')">
+        <div class="field-icon">🤖</div>
+        <div class="field-name">Artificial Intelligence</div>
+        <div class="field-teaser">Systems that learn from data and make decisions</div>
+      </div>
+      <div class="field-card" onclick="selectField(this,'field-cyber')">
+        <div class="field-icon">🔐</div>
+        <div class="field-name">Cybersecurity</div>
+        <div class="field-teaser">Protecting data, systems, and people from attacks</div>
+      </div>
+      <div class="field-card" onclick="selectField(this,'field-data')">
+        <div class="field-icon">📊</div>
+        <div class="field-name">Data Science</div>
+        <div class="field-teaser">Finding patterns in massive amounts of information</div>
+      </div>
+      <div class="field-card" onclick="selectField(this,'field-se')">
+        <div class="field-icon">🛠️</div>
+        <div class="field-name">Software Engineering</div>
+        <div class="field-teaser">Building the apps and programs people use every day</div>
+      </div>
+      <div class="field-card" onclick="selectField(this,'field-game')">
+        <div class="field-icon">🎮</div>
+        <div class="field-name">Game Design</div>
+        <div class="field-teaser">The logic, physics, and systems that make games work</div>
+      </div>
+      <div class="field-card" onclick="selectField(this,'field-hci')">
+        <div class="field-icon">🖱️</div>
+        <div class="field-name">Human-Computer Interaction</div>
+        <div class="field-teaser">Why some apps feel intuitive and others are frustrating</div>
+      </div>
+    </div>
+
+    <div id="field-ai" class="field-detail">
+      <div class="field-detail-title">🤖 Artificial Intelligence</div>
+      <p>AI systems learn from data and make decisions — without being explicitly programmed with every answer. They find patterns and improve over time.</p>
+      <div class="field-examples">
+        <strong style="font-size:13px; display:block; margin-bottom:6px;">Real examples:</strong>
+        <span>ChatGPT</span><span>Siri / Alexa</span><span>Spotify Discover Weekly</span><span>Netflix recommendations</span><span>Spam filters</span><span>Duolingo adaptive lessons</span>
+      </div>
+    </div>
+
+    <div id="field-cyber" class="field-detail">
+      <div class="field-detail-title">🔐 Cybersecurity</div>
+      <p>Cybersecurity protects data, systems, and people from unauthorized access or attacks. Every time you use a password or see "https" in a URL, cybersecurity is involved.</p>
+      <div class="field-examples">
+        <strong style="font-size:13px; display:block; margin-bottom:6px;">Real examples:</strong>
+        <span>School login systems</span><span>Two-factor authentication</span><span>HTTPS / SSL certificates</span><span>Antivirus software</span><span>Password managers</span>
+      </div>
+    </div>
+
+    <div id="field-data" class="field-detail">
+      <div class="field-detail-title">📊 Data Science</div>
+      <p>Data science finds meaningful patterns in massive datasets. How does Spotify know you'll like a song you've never heard? That's data science — analyzing your listening history against millions of others.</p>
+      <div class="field-examples">
+        <strong style="font-size:13px; display:block; margin-bottom:6px;">Real examples:</strong>
+        <span>Spotify Discover Weekly</span><span>Google Search rankings</span><span>Weather forecasting</span><span>Sports analytics</span><span>Hospital patient data</span>
+      </div>
+    </div>
+
+    <div id="field-se" class="field-detail">
+      <div class="field-detail-title">🛠️ Software Engineering</div>
+      <p>Software engineers design, build, and maintain the applications people use every day. They write the code that becomes the apps on your phone, the websites you visit, and the tools professionals rely on.</p>
+      <div class="field-examples">
+        <strong style="font-size:13px; display:block; margin-bottom:6px;">Real examples:</strong>
+        <span>Instagram</span><span>Google Maps</span><span>Canvas / school portals</span><span>Banking apps</span><span>This website</span>
+      </div>
+    </div>
+
+    <div id="field-game" class="field-detail">
+      <div class="field-detail-title">🎮 Game Design</div>
+      <p>Game design isn't just art — it's systems, logic, and physics. When Fortnite's character moves and collides with objects realistically, that's a physics engine written in code. Every rule, item, and mechanic is programmed.</p>
+      <div class="field-examples">
+        <strong style="font-size:13px; display:block; margin-bottom:6px;">Real examples:</strong>
+        <span>Fortnite physics</span><span>Minecraft world generation</span><span>Game AI opponents</span><span>Collision detection</span><span>Leaderboard systems</span>
+      </div>
+    </div>
+
+    <div id="field-hci" class="field-detail">
+      <div class="field-detail-title">🖱️ Human-Computer Interaction</div>
+      <p>HCI studies and designs how people interact with technology. When an app feels obvious and easy to use, an HCI designer made intentional decisions to get it there. When it's confusing, they didn't.</p>
+      <div class="field-examples">
+        <strong style="font-size:13px; display:block; margin-bottom:6px;">Real examples:</strong>
+        <span>App layout & navigation</span><span>Accessibility features</span><span>Voice assistant design</span><span>Touchscreen gestures</span><span>Dark mode</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 2: LANGUAGES ──────────────────────────────────────────── -->
+  <section id="languages">
+    <div class="section-label">Section 2</div>
+    <h2>How Do You Talk to a Computer?</h2>
+    <p class="section-intro">Your phone understands "Hey Siri, play something chill" — but it doesn't <em>understand</em> you the way a friend would. There's a big difference between how humans communicate and how computers actually work.</p>
+
+    <div class="info-box purple">
+      <span class="info-icon">🗣️</span>
+      <div class="info-text">
+        <strong>Natural vs. Formal Language</strong>
+        Natural language (English, Spanish) is flexible and messy. Formal language (Python, Java) is exact and unambiguous. Computers can only work with formal language.
+      </div>
+    </div>
+
+    <table class="compare-table" style="margin-bottom:24px;">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Natural Language</th>
+          <th>Formal Language</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Examples</strong></td>
+          <td>English, Spanish, emoji</td>
+          <td>Python, Java, HTML</td>
+        </tr>
+        <tr>
+          <td><strong>Rules</strong></td>
+          <td>Flexible, context-dependent</td>
+          <td>Exact, unambiguous</td>
+        </tr>
+        <tr>
+          <td><strong>Errors</strong></td>
+          <td>Humans usually figure it out</td>
+          <td>Computer stops completely</td>
+        </tr>
+        <tr>
+          <td><strong>Ambiguity</strong></td>
+          <td>Common and acceptable</td>
+          <td>Not allowed</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>See the difference</h3>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:14px;">These two instructions mean the same thing to humans — but only one works for a computer.</p>
+
+    <div class="card-grid">
+      <div class="card accent-orange">
+        <h3 style="margin-bottom:8px; color:var(--orange);">Version A — Natural Language</h3>
+        <p style="font-style:italic; font-size:15px;">"Hey, can you send me that homework thing? You know the one."</p>
+        <p style="font-size:14px; color:var(--muted); margin-top:10px; margin-bottom:0;">A human figures it out from context. A computer has no idea — what thing? Which homework?</p>
+      </div>
+      <div class="card accent-blue">
+        <h3 style="margin-bottom:8px; color:var(--primary);">Version B — Formal Language</h3>
+        <div class="code-block" style="margin:0; padding:12px 16px; font-size:13px;">sprite.move_right(<span class="num">100</span>)</div>
+        <p style="font-size:14px; color:var(--muted); margin-top:10px; margin-bottom:0;">Exactly one interpretation. Move the sprite right by 100 pixels. No guessing needed.</p>
+      </div>
+    </div>
+
+    <div class="info-box blue" style="margin-top:8px;">
+      <span class="info-icon">🐍</span>
+      <div class="info-text">
+        <strong>Python — the language you'll use in this course</strong>
+        Python is one of the most widely used programming languages in the world. It's used in AI research, data science, web development, and cybersecurity — and it's the same language professionals use. You'll write in Python through Codesters.
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px;">Key Vocabulary</h3>
+    <div class="vocab-grid">
+      <div class="vocab-chip" onclick="showVocab('vc-proglang',this)">programming language</div>
+      <div class="vocab-chip" onclick="showVocab('vc-natural',this)">natural language</div>
+      <div class="vocab-chip" onclick="showVocab('vc-formal',this)">formal language</div>
+      <div class="vocab-chip" onclick="showVocab('vc-syntax2',this)">syntax</div>
+      <div class="vocab-chip" onclick="showVocab('vc-python',this)">Python</div>
+    </div>
+    <div id="vc-proglang" class="vocab-definition"><strong>programming language</strong> — a formal language used to give instructions to a computer.</div>
+    <div id="vc-natural"  class="vocab-definition"><strong>natural language</strong> — human language (English, Spanish, etc.) — flexible, context-dependent, sometimes ambiguous.</div>
+    <div id="vc-formal"   class="vocab-definition"><strong>formal language</strong> — a language with exact rules where every symbol has one specific meaning. No ambiguity allowed.</div>
+    <div id="vc-syntax2"  class="vocab-definition"><strong>syntax</strong> — the rules of a programming language — structure, symbols, and order. Break the rules and the computer stops.</div>
+    <div id="vc-python"   class="vocab-definition"><strong>Python</strong> — a widely-used text-based programming language used in this course, and in AI, data science, web development, and more.</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 3: ALGORITHMS ─────────────────────────────────────────── -->
+  <section id="algorithms">
+    <div class="section-label">Section 3</div>
+    <h2>What's an Algorithm?</h2>
+    <p class="section-intro">Every recommendation you've gotten from a streaming service, every search result, every weirdly specific ad — those are all outputs of algorithms someone wrote.</p>
+
+    <div class="info-box purple">
+      <span class="info-icon">📋</span>
+      <div class="info-text">
+        <strong>Algorithm</strong>
+        A set of precise steps for solving a problem or completing a task. The steps must be in the right order, and nothing can be skipped.
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px;">How TikTok Decides What's Next</h3>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:16px;">It's not random. It's not a human picking for you. An algorithm runs constantly, weighing dozens of signals. Step through how it works.</p>
+
+    <div class="stepper" id="tiktok-stepper">
+      <div class="step" data-step="1">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Collect your behavior</h4>
+          <p>How long did you watch the last video? Did you like it, share it, or skip it immediately? Every action is recorded as data.</p>
+        </div>
+      </div>
+      <div class="step" data-step="2">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Look at your history</h4>
+          <p>What have you liked, commented on, or rewatched before? The algorithm builds a profile of your preferences over time.</p>
+        </div>
+      </div>
+      <div class="step" data-step="3">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Find similar users</h4>
+          <p>Who else watched what you watch? If millions of users with your taste also loved a certain video, you're likely to like it too.</p>
+        </div>
+      </div>
+      <div class="step" data-step="4">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Factor in context</h4>
+          <p>What time is it? What device are you on? What's trending right now? Context signals also influence what gets shown.</p>
+        </div>
+      </div>
+      <div class="step" data-step="5">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Score and rank candidates</h4>
+          <p>The algorithm scores dozens of potential videos against all these signals and picks the highest-ranked one.</p>
+        </div>
+      </div>
+      <div class="step" data-step="6">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <h4>Show video → repeat</h4>
+          <p>Your reaction to this video feeds right back into Step 1. The loop never stops — and it gets better with every cycle. ✓</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stepper-controls">
+      <button class="btn btn-secondary" onclick="stepBack('tiktok-stepper')">← Back</button>
+      <button class="btn btn-primary"   onclick="stepNext('tiktok-stepper')">Next Step →</button>
+      <button class="btn btn-outline"   onclick="stepReset('tiktok-stepper')">Reset</button>
+    </div>
+
+    <div id="tiktok-done" class="info-box green" style="margin-top:16px; display:none;">
+      <span class="info-icon">✅</span>
+      <div class="info-text"><strong>Algorithm complete.</strong> Every step in order, every signal considered — that's why the feed feels like it knows you.</div>
+    </div>
+
+    <div class="info-box orange" style="margin-top:16px;">
+      <span class="info-icon">🤔</span>
+      <div class="info-text">
+        <strong>Think about it</strong>
+        Who benefits when TikTok's algorithm gets really good at predicting what you'll watch? The user? The creators? TikTok? Advertisers? All of them — but in different ways.
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px;">Key Vocabulary</h3>
+    <div class="vocab-grid">
+      <div class="vocab-chip" onclick="showVocab('vc-algo',this)">algorithm</div>
+    </div>
+    <div id="vc-algo" class="vocab-definition"><strong>algorithm</strong> — a precise set of steps for solving a problem or completing a task. Steps must be in the correct order to work.</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 4: DEBUGGING ──────────────────────────────────────────── -->
+  <section id="debugging">
+    <div class="section-label">Section 4</div>
+    <h2>When Things Go Wrong — Debugging</h2>
+    <p class="section-intro">Your code will not work the first time. This is not a sign you're bad at coding. It's just how coding works. The skill is learning to find and fix the problem.</p>
+
+    <div class="info-box orange">
+      <span class="info-icon">🐛</span>
+      <div class="info-text">
+        <strong>A brief history of "bug"</strong>
+        The term dates to 1947, when a literal moth got stuck in a computer relay and caused it to malfunction. The engineer taped it into the logbook and wrote "first actual case of bug being found." The name stuck.
+      </div>
+    </div>
+
+    <div class="card-grid" style="margin-top:20px;">
+      <div class="card accent-red">
+        <div class="card-icon">❌</div>
+        <h3>Syntax Error</h3>
+        <p>You broke a rule of the language — a missing quotation mark, a misspelled command, a parenthesis in the wrong place. The computer can't even read the instruction. <strong>The program crashes immediately.</strong></p>
+      </div>
+      <div class="card accent-orange">
+        <div class="card-icon">⚠️</div>
+        <h3>Logic Error</h3>
+        <p>The code runs fine, but it does the wrong thing. Your instructions were precise — but they were wrong. Like giving someone directions that are technically correct but send them to the wrong place.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px;">Identify the Bug Type</h3>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">For each scenario below, decide: is it a <strong>Syntax Error</strong> or a <strong>Logic Error</strong>? Select your answer to check.</p>
+
+    <div class="bug-quiz-card">
+      <div class="bug-desc">
+        <strong>Bug A —</strong> A program is supposed to move a sprite to the right, but it moves left instead. The code runs fine, just does the wrong thing.
+      </div>
+      <div class="bug-choices">
+        <button class="bug-choice" onclick="checkBug(this, false, 'bug-a-fb')">Syntax Error</button>
+        <button class="bug-choice" onclick="checkBug(this, true,  'bug-a-fb')">Logic Error</button>
+      </div>
+      <div id="bug-a-fb" class="bug-feedback">
+        The program runs — so it's not a syntax error. The code told the sprite to go the wrong direction. That's a logic error: the instructions were precise but wrong.
+      </div>
+    </div>
+
+    <div class="bug-quiz-card">
+      <div class="bug-desc">
+        <strong>Bug B —</strong> <code style="background:var(--bg); padding:2px 6px; border-radius:4px; font-size:14px;">sprite.say("Hello there!)</code> — the program crashes immediately when you run it.
+      </div>
+      <div class="bug-choices">
+        <button class="bug-choice" onclick="checkBug(this, true,  'bug-b-fb')">Syntax Error</button>
+        <button class="bug-choice" onclick="checkBug(this, false, 'bug-b-fb')">Logic Error</button>
+      </div>
+      <div id="bug-b-fb" class="bug-feedback">
+        The missing closing quote mark (<code>"</code>) breaks Python's syntax rules. The computer can't even parse the instruction — it crashes immediately. That's a syntax error.
+      </div>
+    </div>
+
+    <div class="bug-quiz-card">
+      <div class="bug-desc">
+        <strong>Bug C —</strong> An alarm app runs perfectly, but the alarm goes off one hour before the time the user set.
+      </div>
+      <div class="bug-choices">
+        <button class="bug-choice" onclick="checkBug(this, false, 'bug-c-fb')">Syntax Error</button>
+        <button class="bug-choice" onclick="checkBug(this, true,  'bug-c-fb')">Logic Error</button>
+      </div>
+      <div id="bug-c-fb" class="bug-feedback">
+        The app runs without crashing — so no syntax error. But the time calculation is wrong (probably a timezone or subtraction mistake). The code is precise, but the logic is off. Logic error.
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px;">Spot the Bug — Interactive Code</h3>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:4px;">Click each line to inspect it. Can you find which lines have bugs?</p>
+
+    <div class="code-block" id="debug-block">
+      <div class="debug-line" onclick="inspectLine(this,1)">
+        <span class="line-num">1</span>
+        <span class="line-code"><span class="func">stage</span>.<span class="func">set_background</span>(<span class="string">"summer"</span>)</span>
+        <span class="bug-badge">✓ OK</span>
+      </div>
+      <div class="debug-explanation" id="dl-exp-1">Line 1 is clean. <code>set_background("summer")</code> — string properly wrapped in double quotes, parentheses balanced.</div>
+
+      <div class="debug-line" onclick="inspectLine(this,2)">
+        <span class="line-num">2</span>
+        <span class="line-code"><span class="keyword">sprite</span> = <span class="func">codesters</span>.<span class="func">Sprite</span>(<span class="err">"fox)</span>)</span>
+        <span class="bug-badge">🐛 Bug</span>
+      </div>
+      <div class="debug-explanation" id="dl-exp-2">🐛 Syntax Error! The closing double quote is missing inside the parentheses. Should be: <code>codesters.Sprite("fox")</code></div>
+
+      <div class="debug-line" onclick="inspectLine(this,3)">
+        <span class="line-num">3</span>
+        <span class="line-code"><span class="keyword">sprite</span>.<span class="func">move_down</span>(<span class="num">150</span>)</span>
+        <span class="bug-badge">✓ OK</span>
+      </div>
+      <div class="debug-explanation" id="dl-exp-3">Line 3 is clean. <code>move_down(150)</code> correctly passes a number — not a string in quotes.</div>
+
+      <div class="debug-line" onclick="inspectLine(this,4)">
+        <span class="line-num">4</span>
+        <span class="line-code"><span class="keyword">sprite</span>.<span class="func">move_right</span>(<span class="err">"100"</span>)</span>
+        <span class="bug-badge">🐛 Bug</span>
+      </div>
+      <div class="debug-explanation" id="dl-exp-4">🐛 Type Bug! <code>move_right</code> expects a number, not a string. Remove the quotes: <code>sprite.move_right(100)</code></div>
+
+      <div class="debug-line" onclick="inspectLine(this,5)">
+        <span class="line-num">5</span>
+        <span class="line-code"><span class="keyword">sprite</span>.<span class="func">say</span>(<span class="string">"Hey there, friend!"</span>)</span>
+        <span class="bug-badge">✓ OK</span>
+      </div>
+      <div class="debug-explanation" id="dl-exp-5">Line 5 is clean. String in double quotes, parentheses balanced — correct syntax.</div>
+    </div>
+
+    <h3 style="margin-top:28px;">Key Vocabulary</h3>
+    <div class="vocab-grid">
+      <div class="vocab-chip" onclick="showVocab('vc-bug',this)">bug</div>
+      <div class="vocab-chip" onclick="showVocab('vc-debug',this)">debugging</div>
+    </div>
+    <div id="vc-bug"   class="vocab-definition"><strong>bug</strong> — an error in code that prevents it from running correctly or doing what was intended.</div>
+    <div id="vc-debug" class="vocab-definition"><strong>debugging</strong> — the process of finding and fixing bugs. A core skill in CS — not a sign of failure.</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 5: HARDWARE ───────────────────────────────────────────── -->
+  <section id="hardware">
+    <div class="section-label">Section 5</div>
+    <h2>Hardware &amp; Input — The Physical Side</h2>
+    <p class="section-intro">Software runs on physical machines. Without input, a program just runs the same thing on a loop forever. Input is what makes software respond to <em>you</em>.</p>
+
+    <div class="card-grid">
+      <div class="card accent-blue">
+        <div class="card-icon">🖥️</div>
+        <h3>Hardware</h3>
+        <p>The physical components of a computer system — your phone, laptop, keyboard, camera. Hardware is what software runs <em>on</em>.</p>
+      </div>
+      <div class="card accent-purple">
+        <div class="card-icon">💾</div>
+        <h3>Software</h3>
+        <p>Programs and instructions that run on hardware. The apps on your phone, the operating system, the code you write — all software.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:8px;">Input Devices</h3>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:16px;">Some hardware is specifically designed to bring information <em>in</em> to a computer. Click a device to see how it works.</p>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:12px; margin-bottom:16px;" id="hw-grid">
+      <div class="field-card" style="text-align:center; padding:18px 12px;" onclick="selectHW(this,'hw-touch')">
+        <div class="field-icon">📱</div>
+        <div class="field-name" style="font-size:14px;">Touchscreen</div>
+      </div>
+      <div class="field-card" style="text-align:center; padding:18px 12px;" onclick="selectHW(this,'hw-mic')">
+        <div class="field-icon">🎤</div>
+        <div class="field-name" style="font-size:14px;">Microphone</div>
+      </div>
+      <div class="field-card" style="text-align:center; padding:18px 12px;" onclick="selectHW(this,'hw-cam')">
+        <div class="field-icon">📷</div>
+        <div class="field-name" style="font-size:14px;">Camera</div>
+      </div>
+      <div class="field-card" style="text-align:center; padding:18px 12px;" onclick="selectHW(this,'hw-sensor')">
+        <div class="field-icon">🌡️</div>
+        <div class="field-name" style="font-size:14px;">Sensor</div>
+      </div>
+      <div class="field-card" style="text-align:center; padding:18px 12px;" onclick="selectHW(this,'hw-keyboard')">
+        <div class="field-icon">⌨️</div>
+        <div class="field-name" style="font-size:14px;">Keyboard</div>
+      </div>
+    </div>
+
+    <div id="hw-touch"    class="field-detail"><div class="field-detail-title">📱 Touchscreen</div><p>Takes in taps and swipes directly on the screen. How your phone unlocks, how you scroll through Instagram, how a McDonald's kiosk takes your order — all touchscreen input.</p></div>
+    <div id="hw-mic"      class="field-detail"><div class="field-detail-title">🎤 Microphone</div><p>Takes in sound. When you say "Hey Siri" or "OK Google," your voice is captured as audio data, converted to text, and matched against patterns to figure out what to do.</p></div>
+    <div id="hw-cam"      class="field-detail"><div class="field-detail-title">📷 Camera</div><p>Takes in images. Face ID uses your camera to capture a 3D map of your face and compare it against stored data. If it matches, your phone unlocks — a real-time AI decision from a physical input.</p></div>
+    <div id="hw-sensor"   class="field-detail"><div class="field-detail-title">🌡️ Sensor</div><p>Takes in physical measurements — temperature, light level, speed, location. Sensors in a self-driving car read the road, other vehicles, and obstacles constantly in real time, feeding data into algorithms that make driving decisions.</p></div>
+    <div id="hw-keyboard" class="field-detail"><div class="field-detail-title">⌨️ Keyboard</div><p>Takes in typed characters and shortcuts. One of the most common input devices — translating physical key presses into digital characters the computer can process.</p></div>
+
+    <h3 style="margin-top:28px;">Key Vocabulary</h3>
+    <div class="vocab-grid">
+      <div class="vocab-chip" onclick="showVocab('vc-hardware',this)">hardware</div>
+      <div class="vocab-chip" onclick="showVocab('vc-software',this)">software</div>
+      <div class="vocab-chip" onclick="showVocab('vc-input',this)">input</div>
+    </div>
+    <div id="vc-hardware" class="vocab-definition"><strong>hardware</strong> — the physical components of a computer system (phone, laptop, keyboard, camera).</div>
+    <div id="vc-software" class="vocab-definition"><strong>software</strong> — programs and instructions that run on hardware.</div>
+    <div id="vc-input"    class="vocab-definition"><strong>input</strong> — information a program receives from a user or sensor, typically through an input device.</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 6: VOCABULARY ─────────────────────────────────────────── -->
+  <section id="vocab">
+    <div class="section-label">Review</div>
+    <h2>Key Vocabulary — Flash Cards</h2>
+    <p class="section-intro">Click a card to reveal the definition. Use the arrows to go through all Module 1 terms.</p>
+
+    <div class="flashcard-container">
+      <div class="flashcard" onclick="flipCard()" id="flashcard">
+        <div class="front">
+          <div class="question" id="fc-question">Loading...</div>
+          <div style="font-size:13px; color:var(--muted); margin-top:8px;">Module 1 · Key Term</div>
+        </div>
+        <div class="back">
+          <div class="answer" id="fc-answer"></div>
+        </div>
+        <div class="flip-hint">click to flip</div>
+      </div>
+    </div>
+
+    <div class="flashcard-nav">
+      <button class="btn btn-secondary" onclick="prevCard()">← Prev</button>
+      <span class="card-count" id="fc-count"></span>
+      <button class="btn btn-primary"   onclick="nextCard()">Next →</button>
+    </div>
+
+    <div class="progress-wrap" style="margin-top:12px;">
+      <div class="progress-bar" id="fc-progress" style="width:8%;"></div>
+    </div>
+    <div style="font-size:12px; color:var(--muted); margin-top:6px; text-align:right;" id="fc-progress-label"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 7: OBJECTIVES + RESOURCES ─────────────────────────────── -->
+  <section id="objectives">
+    <div class="section-label">Objectives &amp; Resources</div>
+    <h2>Learning Objectives</h2>
+    <p class="section-intro">By the end of this module, you should be able to do all of the following.</p>
+
+    <ul class="obj-list">
+      <li><span class="obj-num">1</span>Identify at least four fields within computer science and give a real-world example of each</li>
+      <li><span class="obj-num">2</span>Explain the difference between a natural language and a formal language</li>
+      <li><span class="obj-num">3</span>Define <em>algorithm</em> and identify examples of algorithms in everyday technology</li>
+      <li><span class="obj-num">4</span>Distinguish between a syntax error and a logic error</li>
+      <li><span class="obj-num">5</span>Define <em>debugging</em> and explain why it is a core programming skill</li>
+      <li><span class="obj-num">6</span>Identify input devices and explain why input matters in software</li>
+    </ul>
+
+    <h3 style="margin-top:36px;">Coding Objectives</h3>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:12px;">By the end of the Codesters activity, you should be able to:</p>
+    <ul class="obj-list">
+      <li><span class="obj-num" style="background:var(--accent);">1</span>Set a background in Codesters</li>
+      <li><span class="obj-num" style="background:var(--accent);">2</span>Create a sprite</li>
+      <li><span class="obj-num" style="background:var(--accent);">3</span>Use movement actions to animate a sprite</li>
+      <li><span class="obj-num" style="background:var(--accent);">4</span>Use a click event to make a program interactive</li>
+    </ul>
+
+    <h3 style="margin-top:36px;">Links &amp; Assignments</h3>
+
+    <div class="links-grid">
+      <a href="https://forms.gle/e415TNkSuaMUCouq7" target="_blank" class="link-card">
+        <span class="link-icon">📝</span>
+        <div>
+          <div class="link-label">Vocabulary Challenge</div>
+          <div class="link-desc">Test your knowledge of Module 1 terms</div>
+        </div>
+      </a>
+      <a href="https://www.codesters.com/preview/c6a94b330d564de69bd4ea4e8fa4ae0a/" target="_blank" class="link-card">
+        <span class="link-icon">💻</span>
+        <div>
+          <div class="link-label">Coding Starter Project</div>
+          <div class="link-desc">Remix this to build your interactive eCard</div>
+        </div>
+      </a>
+      <a href="https://viewpointschool2.padlet.org/" target="_blank" class="link-card">
+        <span class="link-icon">📌</span>
+        <div>
+          <div class="link-label">Post Your Project</div>
+          <div class="link-desc">Share on the class Padlet (log in with Google)</div>
+        </div>
+      </a>
+      <a href="https://forms.gle/AWd4AeYubVBwh8xE9" target="_blank" class="link-card">
+        <span class="link-icon">💬</span>
+        <div>
+          <div class="link-label">Module Reflection</div>
+          <div class="link-desc">Submit your reflection for Module 1</div>
+        </div>
+      </a>
+      <a href="https://b.socrative.com/login/student/" target="_blank" class="link-card">
+        <span class="link-icon">🏫</span>
+        <div>
+          <div class="link-label">Test Review (Socrative)</div>
+          <div class="link-desc">Room name: <strong>vpone</strong></div>
+        </div>
+      </a>
+      <a href="https://quizlet.com/598891748/vp-module-1-vocabulary-review-flash-cards/" target="_blank" class="link-card">
+        <span class="link-icon">🗂️</span>
+        <div>
+          <div class="link-label">Quizlet Review</div>
+          <div class="link-desc">Module 1 vocabulary flash cards</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="info-box green" style="margin-top:24px;">
+      <span class="info-icon">🎯</span>
+      <div class="info-text">
+        <strong>Coding Project: Interactive eCard (100 pts)</strong>
+        Build an e-card to celebrate an event — a birthday, holiday, or special day. Make it interactive so the receiver can click and cause something to happen!
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Module 1: Introduction to Computer Science &nbsp;·&nbsp; Intro to CS Course
+</footer>
+
+<script>
+  // ── CS Fields ──────────────────────────────────────────────────────────
+  let activeField = null;
+
+  function selectField(card, detailId) {
+    const detail = document.getElementById(detailId);
+    const isOpen = card.classList.contains('selected');
+
+    document.querySelectorAll('.field-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.field-detail').forEach(d => d.classList.remove('visible'));
+
+    if (!isOpen) {
+      card.classList.add('selected');
+      detail.classList.add('visible');
+      activeField = detailId;
+    } else {
+      activeField = null;
+    }
+  }
+
+  // ── Vocabulary chips ───────────────────────────────────────────────────
+  let lastVocabChip = null;
+  let lastVocabDef  = null;
+
+  function showVocab(id, chip) {
+    const def = document.getElementById(id);
+    const isOpen = def.classList.contains('visible');
+
+    if (lastVocabDef) { lastVocabDef.classList.remove('visible'); }
+    if (lastVocabChip) { lastVocabChip.classList.remove('open'); }
+
+    if (!isOpen) {
+      def.classList.add('visible');
+      chip.classList.add('open');
+      lastVocabDef  = def;
+      lastVocabChip = chip;
+    } else {
+      lastVocabDef  = null;
+      lastVocabChip = null;
+    }
+  }
+
+  // ── TikTok Stepper ─────────────────────────────────────────────────────
+  const stepperState = { 'tiktok-stepper': 0 };
+
+  function getSteps(stepperId) {
+    return document.querySelectorAll(`#${stepperId} .step`);
+  }
+
+  function renderStepper(stepperId) {
+    const steps = getSteps(stepperId);
+    const current = stepperState[stepperId];
+    steps.forEach((s, i) => {
+      s.classList.remove('active', 'done');
+      if (i < current)  s.classList.add('done');
+      if (i === current) s.classList.add('active');
+    });
+    const doneEl = document.getElementById(stepperId.replace('-stepper', '-done'));
+    if (doneEl) doneEl.style.display = current >= steps.length ? 'flex' : 'none';
+  }
+
+  function stepNext(id) {
+    const steps = getSteps(id);
+    if (stepperState[id] < steps.length) stepperState[id]++;
+    renderStepper(id);
+  }
+
+  function stepBack(id) {
+    if (stepperState[id] > 0) stepperState[id]--;
+    renderStepper(id);
+  }
+
+  function stepReset(id) {
+    stepperState[id] = 0;
+    renderStepper(id);
+  }
+
+  renderStepper('tiktok-stepper');
+
+  // ── Bug quiz ───────────────────────────────────────────────────────────
+  function checkBug(btn, isCorrect, feedbackId) {
+    const group = btn.closest('.bug-choices');
+    if (group.dataset.answered) return;
+    group.dataset.answered = '1';
+
+    const fb = document.getElementById(feedbackId);
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    fb.classList.add('show', isCorrect ? 'correct' : 'wrong');
+
+    if (!isCorrect) {
+      group.querySelectorAll('.bug-choice').forEach(b => {
+        if (b !== btn) b.classList.add('correct');
+      });
+    }
+  }
+
+  // ── Code debugger ──────────────────────────────────────────────────────
+  const lineData = {
+    1: { ok: true },
+    2: { ok: false },
+    3: { ok: true },
+    4: { ok: false },
+    5: { ok: true }
+  };
+
+  document.querySelectorAll('.debug-line').forEach((line, i) => {
+    const num = i + 1;
+    line.classList.add(lineData[num].ok ? 'is-ok' : 'is-bug');
+  });
+
+  function inspectLine(el, num) {
+    const wasRevealed = el.classList.contains('revealed');
+    el.classList.add('revealed');
+    const exp = document.getElementById('dl-exp-' + num);
+    if (exp) exp.classList.toggle('visible', !wasRevealed || exp.classList.contains('visible'));
+    exp.classList.add('visible');
+  }
+
+  // ── Hardware selector ──────────────────────────────────────────────────
+  let lastHW = null;
+
+  function selectHW(card, detailId) {
+    const detail = document.getElementById(detailId);
+    const isOpen = card.classList.contains('selected');
+
+    document.querySelectorAll('#hw-grid .field-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('#hardware .field-detail').forEach(d => d.classList.remove('visible'));
+
+    if (!isOpen) {
+      card.classList.add('selected');
+      detail.classList.add('visible');
+      lastHW = detailId;
+    } else {
+      lastHW = null;
+    }
+  }
+
+  // ── Flash cards ────────────────────────────────────────────────────────
+  const cards = [
+    { q: 'computer science',    a: 'The field covering AI, cybersecurity, data science, software, and more — using computers to solve problems.' },
+    { q: 'algorithm',           a: 'A precise set of steps for solving a problem or completing a task. Steps must be in the correct order.' },
+    { q: 'programming language',a: 'A formal language used to give instructions to a computer.' },
+    { q: 'natural language',    a: 'Human language (English, Spanish, etc.) — flexible, context-dependent, sometimes ambiguous.' },
+    { q: 'formal language',     a: 'A language with exact rules where every symbol has one specific meaning. No ambiguity allowed.' },
+    { q: 'Python',              a: 'A widely-used text-based programming language used in this course, and in AI, data science, web development, and more.' },
+    { q: 'syntax',              a: 'The rules of a programming language — structure, symbols, and order. Break the rules and the computer stops.' },
+    { q: 'bug',                 a: 'An error in code that prevents it from running correctly or doing what was intended.' },
+    { q: 'debugging',           a: 'The process of finding and fixing bugs. A core skill in CS.' },
+    { q: 'hardware',            a: 'The physical components of a computer system (phone, laptop, keyboard, camera).' },
+    { q: 'input',               a: 'Information a program receives from a user or sensor, typically through an input device.' },
+    { q: 'software',            a: 'Programs and instructions that run on hardware.' },
+  ];
+
+  let fcIndex = 0;
+
+  function renderCard() {
+    const c = cards[fcIndex];
+    document.getElementById('fc-question').textContent = c.q;
+    document.getElementById('fc-answer').textContent   = c.a;
+    document.getElementById('fc-count').textContent    = `${fcIndex + 1} / ${cards.length}`;
+    const pct = Math.round(((fcIndex + 1) / cards.length) * 100);
+    document.getElementById('fc-progress').style.width = pct + '%';
+    document.getElementById('fc-progress-label').textContent = `${pct}% through the deck`;
+    document.getElementById('flashcard').classList.remove('flipped');
+  }
+
+  function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+  function nextCard()  { fcIndex = (fcIndex + 1) % cards.length; renderCard(); }
+  function prevCard()  { fcIndex = (fcIndex - 1 + cards.length) % cards.length; renderCard(); }
+
+  renderCard();
+
+  // ── Sticky nav active state ────────────────────────────────────────────
+  const sections  = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('nav a');
+
+  function updateNav() {
+    let current = sections[0].id;
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+</script>
+</body>
+</html>
