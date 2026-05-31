@@ -1,3 +1,8 @@
+/* ── Vocab Flip Cards ── */
+document.querySelectorAll('.vocab-card').forEach(card => {
+  card.addEventListener('click', () => card.classList.toggle('flipped'));
+});
+
 /* ── CS Field Cards ── */
 document.querySelectorAll('.cs-card').forEach(card => {
   card.addEventListener('click', () => card.classList.toggle('open'));
